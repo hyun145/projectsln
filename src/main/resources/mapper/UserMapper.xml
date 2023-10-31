@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- JAVA와 연결할 Mapper 파일 설정 -->
+<mapper namespace="project.sln.persistance.IUserMapper">
+
+    <!--    회원가입 전 중복체크 하기 -->
+    <select id="getUserIdExists" parameterType="UserDTO" resultType="UserDTO">
+        SELECT
+            CASE
+                WHEN COUNT(1) = 0 THEN 'N'
+                ELSE 'Y'
+                END AS EXISTS_YN
+        FROM USER
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <select id="getNickNameCheck" parameterType="UserDTO" resultType="UserDTO">
+        SELECT
+            CASE
+                WHEN COUNT(1) = 0 THEN 'N'
+                ELSE 'Y'
+                END AS EXISTS_YN
+        FROM USER
+        WHERE NICK_NAME = #{nickName}
+    </select>
+
+    <insert id="insertUserInfo" parameterType="UserDTO">
+        INSERT INTO USER
+        (
+            USER_ID,
+            NICK_NAME,
+            USER_NAME,
+            PASSWORD,
+            SECURITY_NUMBER,
+            AGE,
+            ADDR1,
+            ADDR2
+        )
+        VALUES
+            (
+                #{userId},
+                #{nickName},
+                #{userName},
+                #{password},
+                #{securityNumber},
+                #{age},
+                #{addr1},
+                #{addr2}
+            )
+
+    </insert>
+
+
+
+    <!--    getLogin과 연결되는 Mapper -->
+    <select id="getLogin" parameterType="UserDTO" resultType="UserDTO">
+        SELECT USER_ID, USER_NAME, NICK_NAME
+        FROM USER
+        WHERE USER_ID = #{userId}
+          AND PASSWORD = #{password}
+    </select>
+
+
+
+</mapper>
+
+
+
+
