@@ -26,6 +26,14 @@ public interface IUserMapper {
     //로그인을 위해 아이디와 비밀번호가 일치하는지 확인하기 !
     UserDTO getLogin(UserDTO pDTO) throws  Exception;
 
+    UserDTO getUserId(UserDTO pDTO) throws Exception;
+
+
+
+
+    int updatePassword(UserDTO pDTO) throws Exception;
+
+
 
 
 

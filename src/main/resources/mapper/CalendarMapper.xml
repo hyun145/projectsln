@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- JAVA와 연결할 Mapper 파일 설정 -->
+<mapper namespace="project.sln.persistance.mapper.ICalendarMapper">
+
+    <select id="getCalendarList" resultType="CalendarDTO">
+        SELECT C.CALENDAR_SEQ, U.USER_ID, C.TITLE, C.START, C.END, C.DESCRIPTION
+        FROM USER U, CALENDAR C
+        WHERE C.USER_ID = U.USER_ID
+    </select>
+
+    <insert id="insertCalendarInfo" parameterType="CalendarDTO">
+        INSERT INTO CALENDAR (CALENDAR_SEQ, USER_ID, TITLE, START, END, DESCRIPTION)
+        VALUES ((SELECT IFNULL(MAX(A.CALENDAR_SEQ), 0) + 1 FROM CALENDAR A), #{userId}, #{title}, #{start}, #{end}, #{description})
+    </insert>
+
+
+
+
+
+
+
+
+    <update id="updateCalendarInfo" parameterType="project.sln.dto.CalendarDTO">
+        UPDATE CALENDAR
+        SET TITLE = #{title},
+            START = #{start},
+            END = #{end},
+            DESCRIPTION = #{description}
+        WHERE CALENDAR_SEQ = #{calendarSeq}
+    </update>
+
+    <select id="getCalendarInfo" resultType="CalendarDTO">
+        SELECT C.CALENDAR_SEQ, U.USER_ID, C.TITLE, C.START, C.END, C.DESCRIPTION
+        FROM USER U, CALENDAR C
+        WHERE C.USER_ID = U.USER_ID
+    </select>
+
+    <delete id="deleteCalendarInfo" parameterType="CalendarDTO">
+        DELETE FROM CALENDAR WHERE CALENDAR_SEQ = #{calendarSeq}
+    </delete>
+
+</mapper>

@@ -102,6 +102,35 @@ public class UserService implements IUserService {
     }
 
 
+    @Override
+    public UserDTO searchUserIdOrPasswordProc(UserDTO pDTO) throws Exception {
+
+        log.info(this.getClass().getName() + ".searchUserIdOrPasswordProc Start!");
+
+        UserDTO rDTO = userMapper.getUserId(pDTO);
+        // 받은 유저이름이랑, 생년월일 DB에 넘겨줘야지. 그리고 rDTO에 저장해서 다시 컨트롤러에 넘겨줌 !
+
+        log.info(this.getClass().getName() + ".searchUserIdOrPasswordProc End!");
+
+        return rDTO;
+
+
+
+    }
+
+    @Override
+    public int newPasswordProc(UserDTO pDTO) throws Exception {
+        log.info(this.getClass().getName() +".newPasswordProc Start!");
+
+        int success = userMapper.updatePassword(pDTO);
+
+
+        log.info(this.getClass().getName() + "newPasswordProc End!");
+
+        return success;
+    }
+
+
 }
 
 

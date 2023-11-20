@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- JAVA와 연결할 Mapper 파일 설정 -->
+<mapper namespace="project.sln.persistance.mapper.IGdsMapper">
+
+    <select id="getGdsList" resultType="GdsDTO">
+        SELECT U.USER_ID, U.USER_NAME, G.SCORE, G.Test_DATE
+        FROM USER U, Gds G
+        WHERE G.GDSUSER_ID = U.USER_ID
+    </select>
+
+    <insert id="insertGdsInfo" parameterType="GdsDTO">
+        INSERT INTO Gds
+            (GDSUSER_ID, USER_NAME, SCORE, TEST_DATE)
+        VALUES (#{userId},
+                #{userName},
+                #{score},
+                NOW()
+               )
+
+            ON DUPLICATE KEY UPDATE
+                                 SCORE = VALUES(SCORE),
+                                 TEST_DATE = VALUES(TEST_DATE)
+
+    </insert>
+
+    <update id="updateGdsInfo" parameterType="GdsDTO">
+        UPDATE Gds SET
+                       USER_NAME = #{userName},
+                       SCORE = #{score},
+                       NOW()
+        WHERE GDSUSER_ID = #{userId}
+    </update>
+
+
+</mapper>

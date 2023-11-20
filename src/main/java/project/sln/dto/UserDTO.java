@@ -16,8 +16,7 @@ public class UserDTO {
     private String userName;
     private String userId;
     private String password;        // 암호화 저장
-    private String securityNumber; // 암호화 저장
-    private String age;
+    private String birthDay; // 암호화 저장 굳이 할 필요 있나 싶음.
     private String addr1;
     private String nickName;
     private String addr2;

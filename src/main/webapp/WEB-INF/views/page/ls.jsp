@@ -31,10 +31,10 @@
 <body style="background: linear-gradient(to bottom, #87CEEB, #E6E6FA, #B0E0E6)" class="fade-in">
 <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
     <div style="text-align: center;">
-        <button id="loginButton" class="button" style="margin-right: 35px" onclick="window.location.href='http://localhost:11000/user/login';">
+        <button id="loginButton" class="button" style="margin-right: 35px" onclick="window.location.href='/user/login';">
             로그인 하기
         </button>
-        <button id="signupButton" class="button" style="margin-left: 35px" onclick="window.location.href='http://localhost:11000/user/userReg';">
+        <button id="signupButton" class="button" style="margin-left: 35px" onclick="window.location.href='/user/userReg';">
             회원가입 하기
         </button>
     </div>
