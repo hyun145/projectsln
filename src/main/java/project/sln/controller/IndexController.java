@@ -31,9 +31,12 @@ public class IndexController {
         return "/page/index";
     }
 
+    /*
+    로그아웃 후 메인페이지로 다시 넘어감 ( 세션에 값 삭제 )
+     */
     @GetMapping(value = "logout")
     public String logout(HttpServletRequest request, HttpSession session) throws Exception {
-        log.info(this.getClass().getName() + "./user/logout Start!");
+        log.info(this.getClass().getName() + "./user/logout Start!!");
 
         session.getAttribute("SS_USER_ID");
 
