@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="../../../../../../../../Users/82103/Desktop/공모전/startbootstrap-business-frontpage-gh-pages/css/styles.css" rel="stylesheet" />
-
+    <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
 
 
 
@@ -53,7 +53,10 @@
 
 
     </style>
+    <script>
 
+
+    </script>
 
 </head>
 <body style="background: linear-gradient(to bottom, #87CEEB, #E6E6FA, #B0E0E6)" class="fade-in" >
@@ -86,6 +89,22 @@
 </nav>
 <script>
     var zoomControlsVisible = false;
+    var userId = '<%=(String)session.getAttribute("SS_USER_ID")%>';
+    function login() {
+
+        if (userId === "" || userId === "null") {
+            document.getElementById("login").style.display = 'block';
+            document.getElementById("logout").style.display = 'none';        // 비활성화
+            console.log("id 없음");
+        } else {
+            document.getElementById("login").style.display = 'none';
+            document.getElementById("logout").style.display = 'block';
+            console.log("id 있음");
+            console.log(userId);
+       }
+
+    }
+
 
     function toggleZoomControls() {
         zoomControlsVisible = !zoomControlsVisible;
@@ -134,8 +153,10 @@
 
     // HTML로딩이 완료되고, 실행됨
     $(document).ready(function () {
+        login();
 
-        $("#btnCalendar").on("click", function () {
+        console.log("")
+        $("#btnCalendar").on("click", function (event) {
             let f = document.getElementById("f");
 
             $.ajax({
@@ -158,6 +179,8 @@
             )
         })
     })
+
+
 </script>
 </body>
 </html>
@@ -173,7 +196,6 @@
 
         <%--        <img src="/image/노인.png" style="position: absolute; top: 0; bottom: 0; left: 0; height: 100px; width: 70px">--%>
 
-
         <div class="user-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;
         font-size: 42px; font-family: '나눔손글씨 펜'; max-width: 61.73%;">
             안녕하세요 방문자 여러분, 저희 사이트에 오신걸 환영합니다.<br>
@@ -182,6 +204,7 @@
             밑으로 내려가시면 다양한 정보들이 있습니다.
 
             <div style="text-align: center; margin-top: 42px; font-family: '나눔손글씨 펜'">
+
                 <a href="#features1" style="text-decoration: none;">
                     <p class="scroll-text">아래로 이동↓</p>
                 </a>
@@ -202,16 +225,25 @@
 
 
 
-
 <section class="py-5 border-bottom" id="features1" style="margin-top: 400px;">
     <div class="container px-5 my-5">
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-4 mb-5 mb-lg-0">
-                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3" style="font-size: 27px; border-radius: 5px; text-align: center;">로그인/회원가입 하기</div>
-                <a href="/page/ls">
-                    <img src="/image/로그인.jpg" width="327.7px" height="327.7px" style="border-radius: 10px; cursor: pointer; display: block; margin: 0 auto;">
-                </a>
+                <!-- 로그인 하지 않은 상태-->
+                    <div id="login" class="mb-3">
+                        <a href="/user/login">로그인</a>
+                    <span><a href="/user/userReg">회원가입</a></span>
+                    </div>
+
+
+                <!-- 로그인 한 상태 -->
+
+                    <div id="logout">${sessionScope.SS_USER_ID} 님
+                        <a href="/page/logout">로그아웃</a>
+                    </div>
+
             </div>
+
 
             <div class="col-lg-4 mb-5 mb-lg-0">
                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3" style="font-size: 27px; border-radius: 5px; text-align: center;">우울증 테스트 하기</div>
